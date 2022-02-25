@@ -1,17 +1,13 @@
 
 <template>
     <div class="thing-details">
-        <p> <strong>Details: </strong></p>
-        <div class="thing-details-name">
-            Name: {{ thing.name }}
-        </div>
         <div class="thing-details-id">
-            ID: {{ thing.id }}
+            ID: {{ id }}
         </div>
         <div class="thing-details-keys">
             Keywords: 
             <div 
-                v-for="keyword in thing.keywords"
+                v-for="keyword in keywords"
                 :key="keyword"
                 class="keyword"
             >
@@ -24,7 +20,10 @@
 <script>
 export default {
     name: "ThingDetail",
-    props: ["thing"]
+    props: {
+        "id": String,
+        "keywords": []
+    }
 }
 </script>
 
@@ -32,19 +31,25 @@ export default {
     .thing-details {
         display: flex;
         flex-direction: column;
-        margin: 16px;
-        background-color: white;
-        border: 1px solid darkgray;
+        margin: 15px 15px 10px 15px;
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        font-size: 11pt;
 
         .thing-details-keys {
             display: flex;
             flex-direction: row;
-            padding: 8px;
 
             .keyword {
-                border: 1px solid grey;
+                border: 1px solid black;
                 border-radius: 5px;
                 padding: 0px 8px;
+                margin-left: 4px;
+
+                &:hover {
+                    background: darkgray;
+                }
             }
         }
     }

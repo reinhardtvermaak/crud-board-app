@@ -1,6 +1,8 @@
 <template>
-    <div class="thing-list card text-dark bg-light">
-        <div class="thing-list card text-dark bg-light">
+    <div class="thing-list card bg-light">
+        <h5 class="card-title">My things</h5>
+        
+        <div class="text-dark bg-light">
             <!-- <button @click="fetchList">Refresh</button> -->
             <div v-if="hasThings">
                 <div 
@@ -11,8 +13,10 @@
                     <thing 
                         :title="thing.name" 
                         :flagged="isFlagged(index)"
+                        :info="thing"
                         v-on:remove-thing="removeThing(index)"
                         v-on:flag-thing="flagThing(index)"
+                        v-on:update-title="updateTitle(arguments, index)"
                      />
                 </div>
             </div>
@@ -30,14 +34,14 @@
         >
             &#65291; Add a thing
         </div>
-        <div v-else>
-            <div
+        <div v-else v-click-outside="cancelAddItem">
+            <span
                 class="new-thing-button thing-list-item card text-dark m-2"
             >
-                <div class="input-group input-group-sm">
+                <span class="input-group input-group-sm">
                     <input autoFocus type="text" v-model="tempTitle">
-                </div>
-            </div>
+                </span>
+            </span>
             <button class="btn" @click="furnishNewThing(tempTitle)">Add</button>
         </div>
     </div>
@@ -86,6 +90,9 @@ export default {
                 this.flagged.push(id)
             }
         },
+        updateTitle(args, index) {
+            this.things.at(index).name = args[0];
+        },
         unflag(id) {
             this.flagged = this.flagged.filter( i => i !== id)
         },
@@ -102,10 +109,10 @@ export default {
             this.things = await getThings()
         },
         addItem() {
-            // this.things.push({
-
-            // })
             this.creatingNewItem = true;
+        },
+        cancelAddItem() {
+            this.creatingNewItem = false;
         },
         furnishNewThing(title) {
             if (title !== "") {
@@ -119,12 +126,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
     .thing-list {
         display: flex;
         flex-direction: column;
-        max-width: 300px;
+        max-width: 350px;
         border: none;
-        // margin: 0 auto;
+        margin: 0.5rem auto;
+        box-shadow: 0px 2px 3px lightgray;
+
+        .card-title {
+            margin-top: 0.9rem;
+        }
 
         .thing-list-item {
             display: flex;
@@ -140,16 +153,16 @@ export default {
 
         button {
             min-width: 96px;
-            border-radius: 0px;
+            border-radius: 4px;
             border: 1px solid darkgray;
             outline: none;
-
+            margin-bottom: 0.5rem;
             &:hover {
                 background-color: white;
             }
         }
 
-        input {
+        ::v-deep input {
             outline: none;
             border-width: 0em;
             background-color: transparent;
@@ -157,6 +170,7 @@ export default {
             display: flex;
             flex-direction: column;
             width: 100%;
+            height: 100%;
         }
 
         .new-thing-button {

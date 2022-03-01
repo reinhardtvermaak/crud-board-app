@@ -10,6 +10,7 @@
         <div v-show=!editingTitle>
             <span>{{ title }}</span>
             
+            <!-- show editing options on hover -->
             <span v-show="hoverStatus" class="item-option-group">
                 <button @click.stop="editTitle" class="item-options-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -35,13 +36,15 @@
                 </button>
             </span>
         </div>
+
+        <!-- for editing the title -->
         <div v-show=editingTitle v-click-outside="cancelEditTitle">
             <input @click.stop="" autoFocus type="text" class="input-group input-group-sm" v-model="tempTitle">
             <button class="edit-thing-button" @click.stop="updateThing">Done</button>
         </div>
     </div>
     
-    <thing-detail 
+    <thing-detail
         v-if="isSelected"
         :id="info.id"
         :keywords="info.keywords"
@@ -104,9 +107,6 @@ export default {
         }
     }
 }
-
-
-
 </script>
 
 <style lang="scss" scoped>

@@ -5,7 +5,14 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### start mongodb process
+mongod --config /usr/local/etc/mongod.conf
+mongo (in another terminal tab)
+
+### Start backend dev server
+npm run dev
+
+### Compiles and hot-reloads frontend for development
 ```
 npm run serve
 ```
@@ -13,11 +20,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
 ```
 
 ### Lints and fixes files

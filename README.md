@@ -6,11 +6,19 @@ npm install
 ```
 
 ### start mongodb process
+In one terminal window:
+```
 mongod --config /usr/local/etc/mongod.conf
-mongo (in another terminal tab)
+```
+In another terminal window:
+```
+mongo
+```
 
 ### Start backend dev server
+```
 npm run dev
+```
 
 ### Compiles and hot-reloads frontend for development
 ```
